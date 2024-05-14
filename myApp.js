@@ -6,7 +6,13 @@ let app = express();
 //app.get("/", (req, res) =>
 //  res.send("Hello Express"));
 
-//app.use("/public", express.static(__dirname + "/public"));
+// middleware
+app.use("/", (req, res, next) => {
+  let string = `${req.method} ${req.path} - ${req.ip}`;
+  console.log(string);
+
+  next();
+});
 
 app.get("/json", (req, res) =>
   process.env.MESSAGE_STYLE === "uppercase"
