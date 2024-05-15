@@ -1,6 +1,18 @@
+const bodyParser = require("body-parser");
 let express = require("express");
 const { next } = require("slate");
 let app = express();
+
+// use body-parser to parse POST requests
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// get query parameter from client
+app.get("/name", (req, res) => {
+  const firstname = req.query.first;
+  const lastname = req.query.last;
+  res.json({ name: `${firstname} ${lastname}` });
+});
 
 // get route parameter from client
 app.get("/:word/echo", (req, res) => {
