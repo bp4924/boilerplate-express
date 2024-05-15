@@ -7,6 +7,11 @@ let app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// get data from POST request
+app.post("/name", (req, res) => {
+  res.json({ name: req.body.first + " " + req.body.last });
+});
+
 // get query parameter from client
 app.get("/name", (req, res) => {
   const firstname = req.query.first;
