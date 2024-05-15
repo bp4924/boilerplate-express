@@ -1,10 +1,12 @@
 let express = require("express");
+const { next } = require("slate");
 let app = express();
 
-//console.log("Hello World")
-
-//app.get("/", (req, res) =>
-//  res.send("Hello Express"));
+// get route parameter from client
+app.get("/:word/echo", (req, res) => {
+  let word = req.params.word;
+  res.json({ echo: word });
+});
 
 // middleware
 app.use("/", (req, res, next) => {
@@ -14,6 +16,7 @@ app.use("/", (req, res, next) => {
   next();
 });
 
+// chain middleware
 app.get(
   "/now",
   (req, res, next) => {
@@ -24,6 +27,7 @@ app.get(
   }
 );
 
+// serve JSON using .env
 app.get("/json", (req, res) =>
   process.env.MESSAGE_STYLE === "uppercase"
     ? res.json({ message: "HELLO JSON" })
